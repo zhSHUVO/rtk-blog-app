@@ -24,9 +24,10 @@ const Blog = () => {
     if (!isLoading && !isError && !blog?.id) content = <div>No Blog Found</div>;
     if (!isLoading && !isError && blog?.id)
         content = (
-            <section className="post-page-container">
+            <>
                 <BlogDetails blog={blog} />
-            </section>
+                <RelatedBlog tags={blog.tags} id={blog.id} />
+            </>
         );
 
     return (
@@ -40,10 +41,7 @@ const Blog = () => {
                     <i className="mr-2 fa-solid fa-house"></i>Go Home
                 </Link>
             </div>
-            <section class="post-page-container">
-                {content}
-                <RelatedBlog />
-            </section>
+            <section className="post-page-container">{content}</section>
         </div>
     );
 };

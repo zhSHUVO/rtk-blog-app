@@ -1,52 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchRelatedBlogs } from "../../features/relatedBlogs/relatedBlogsSlice";
+import Loading from "../../ui/Loading";
+import RelatedBlogPosts from "./RelatedBlogPosts";
 
-const RelatedBlog = () => {
+const RelatedBlog = ({ tags, id }) => {
+    const dispatch = useDispatch();
+    const { relatedBlogs, isLoading, isError, error } = useSelector(
+        (state) => state.relatedBlogs
+    );
+    useEffect(() => {
+        dispatch(fetchRelatedBlogs({ tags, id }));
+    }, [id, dispatch, tags]);
+
+    let content = null;
+  if (isLoading) content = <Loading />;
+  if (!isLoading && isError) content = <div>{error}</div>;
+  if (!isLoading && !isError && relatedBlogs?.length === 0)
+    content = <div>No Related Blog Found</div>;
+  if (!isLoading && !isError && relatedBlogs?.length > 0)
+    content = relatedBlogs.map((blog) => (
+      <RelatedBlogPosts key={blog.id} blog={blog} />
+    ));
+
     return (
         <aside>
-            <h4 class="mb-4 text-xl font-medium" id="lws-relatedPosts">
+            <h4 className="mb-4 text-xl font-medium" id="lws-relatedPosts">
                 Related Posts
             </h4>
-            <div class="space-y-4 related-post-container">
-                <div class="card">
-                    <a href="post.html">
-                        <img
-                            src="./images/git.webp"
-                            class="card-image"
-                            alt=""
-                        />
-                    </a>
-                    <div class="p-4">
-                        <a
-                            href="post.html"
-                            class="text-lg post-title lws-RelatedPostTitle"
-                        >
-                            Top Github Alternatives
-                        </a>
-                        <div class="mb-0 tags">
-                            <span>#python,</span> <span>#tech,</span>{" "}
-                            <span>#git</span>
-                        </div>
-                        <p>2010-03-27</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <a href="post.html">
-                        <img src="./images/ai.jpg" class="card-image" alt="" />
-                    </a>
-                    <div class="p-4">
-                        <a
-                            href="post.html"
-                            class="text-lg post-title lws-RelatedPostTitle"
-                        >
-                            The future of Artificial Inteligence
-                        </a>
-                        <div class="mb-0 tags">
-                            <span>#python,</span> <span>#tech,</span>{" "}
-                            <span>#git</span>
-                        </div>
-                        <p>2020-07-15</p>
-                    </div>
-                </div>
+            <div className="space-y-4 related-post-container">
+                {content}
             </div>
         </aside>
     );
