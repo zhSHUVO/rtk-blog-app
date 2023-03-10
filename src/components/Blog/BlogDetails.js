@@ -1,7 +1,13 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { updateLikes, updateSaved } from "../../features/blog/blogSlice";
 
 const BlogDetails = ({ blog }) => {
-    const { image, title, tags, likes, isSaved, description } = blog;
+    const dispatch = useDispatch();
+
+    const { id, image, title, tags, likes, isSaved, description } = blog;
+    console.log(isSaved);
+
     return (
         <main className="post">
             <img
@@ -18,22 +24,35 @@ const BlogDetails = ({ blog }) => {
                     <span>#{tags.join(", #")}</span>
                 </div>
                 <div className="btn-group">
-                    <button className="like-btn" id="lws-singleLinks">
+                    <button
+                        className="like-btn"
+                        id="lws-singleLinks"
+                        onClick={() => {
+                            dispatch(
+                                updateLikes({
+                                    id,
+                                    likes: likes + 1,
+                                })
+                            );
+                        }}
+                    >
                         <i className="fa-regular fa-thumbs-up"></i> {likes}
                     </button>
 
-                    {isSaved ? (
-                        <button
-                            className="active save-btn"
-                            id="lws-singleSavedBtn"
-                        >
-                            <i className="fa-regular fa-bookmark"></i> Saved
-                        </button>
-                    ) : (
-                        <button className="save-btn" id="lws-singleSavedBtn">
-                            <i className="fa-regular fa-bookmark"></i> Save
-                        </button>
-                    )}
+                    <button
+                        className={`save-btn ${isSaved && "active"}`}
+                        id="lws-singleSavedBtn"
+                        onClick={() => {
+                            dispatch(
+                                updateSaved({
+                                    id,
+                                    isSaved: !isSaved,
+                                })
+                            );
+                        }}
+                    >
+                        <i className="fa-regular fa-bookmark"></i> Saved
+                    </button>
                 </div>
                 <div className="mt-6">
                     <p>{description}</p>
