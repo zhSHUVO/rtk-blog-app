@@ -2,7 +2,7 @@ import React from "react";
 
 const Sidebar = () => {
     return (
-        <div>
+        <aside>
             <div className="sidebar-items">
                 <div className="sidebar-content">
                     <h4>Sort</h4>
@@ -41,7 +41,7 @@ const Sidebar = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </aside>
     );
 };
 

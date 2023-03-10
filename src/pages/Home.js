@@ -1,18 +1,14 @@
 import React from "react";
-import PostGrid from "../components/PostGrid";
+import BlogGrid from "../components/Blogs/BlogsGrid";
 import Sidebar from "../components/Sidebar";
 
 const Main = () => {
     return (
         <div>
             <section className="wrapper">
-                <aside>
-                    <Sidebar />
-                </aside>
-                <main className="post-container" id="lws-postContainer">
-                    {" "}
-                    <PostGrid />
-                </main>
+                <Sidebar />
+
+                <BlogGrid />
             </section>
         </div>
     );

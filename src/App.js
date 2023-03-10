@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Nav from "./components/Nav";
+import Blog from "./pages/Blog";
 import Home from "./pages/Home";
-import Post from "./pages/Post";
 
 function App() {
     return (
@@ -10,7 +10,7 @@ function App() {
             <Nav />
             <Routes>
                 <Route path="/" element={<Home />}></Route>
-                <Route path="/posts/:postId" element={<Post />}></Route>
+                <Route path="/blogs/:blogId" element={<Blog />}></Route>
             </Routes>
         </Router>
     );
