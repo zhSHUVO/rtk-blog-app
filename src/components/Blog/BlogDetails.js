@@ -38,20 +38,37 @@ const BlogDetails = ({ blog }) => {
                         <i className="fa-regular fa-thumbs-up"></i> {likes}
                     </button>
 
-                    <button
-                        className={`save-btn ${isSaved && "active"}`}
-                        id="lws-singleSavedBtn"
-                        onClick={() => {
-                            dispatch(
-                                updateSaved({
-                                    id,
-                                    isSaved: !isSaved,
-                                })
-                            );
-                        }}
-                    >
-                        <i className="fa-regular fa-bookmark"></i> Saved
-                    </button>
+                    {isSaved ? (
+                        <button
+                            className={`save-btn ${isSaved && "active"}`}
+                            id="lws-singleSavedBtn"
+                            onClick={() => {
+                                dispatch(
+                                    updateSaved({
+                                        id,
+                                        isSaved: !isSaved,
+                                    })
+                                );
+                            }}
+                        >
+                            <i className="fa-regular fa-bookmark"></i> Saved
+                        </button>
+                    ) : (
+                        <button
+                            className={`save-btn ${isSaved && "active"}`}
+                            id="lws-singleSavedBtn"
+                            onClick={() => {
+                                dispatch(
+                                    updateSaved({
+                                        id,
+                                        isSaved: !isSaved,
+                                    })
+                                );
+                            }}
+                        >
+                            <i className="fa-regular fa-bookmark"></i> Save
+                        </button>
+                    )}
                 </div>
                 <div className="mt-6">
                     <p>{description}</p>
