@@ -16,7 +16,6 @@ export const fetchBlog = createAsyncThunk("blog/fetchBlog", async (id) => {
 export const updateLikes = createAsyncThunk(
     "blog/updateLikes",
     async ({ id, likes }) => {
-        console.log(likes);
         const updatedLikes = await updateLikeValue(id, likes);
         return updatedLikes;
     }
@@ -25,7 +24,6 @@ export const updateLikes = createAsyncThunk(
 export const updateSaved = createAsyncThunk(
     "blog/updateSaved",
     async ({ id, isSaved }) => {
-        console.log(isSaved);
         const updatedSaved = await updateSaveState(id, isSaved);
         return updatedSaved;
     }

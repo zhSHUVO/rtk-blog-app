@@ -11,6 +11,22 @@ const BlogGrid = () => {
         (state) => state.blogs
     );
 
+    const { sort, filter } = useSelector((state) => state.filters);
+
+    const sortBlogs = (a, b) => {
+        switch (sort) {
+            case "most_liked":
+                return b.likes - a.likes;
+            case "newest":
+                return new Date(b.createdAt) - new Date(a.createdAt);
+            default:
+                return 0;
+        }
+    };
+    const filterBlogs = (blog) => {
+        return filter === "saved" ? blog.isSaved : blog;
+    };
+
     useEffect(() => {
         dispatch(fetchBlogs());
     }, [dispatch]);
@@ -26,9 +42,10 @@ const BlogGrid = () => {
     }
 
     if (!isError && !isLoading && blogs?.length > 0) {
-        content = blogs.map((blog) => (
-            <BlogGridItems key={blog.id} blog={blog} />
-        ));
+        content = blogs
+            .filter(filterBlogs)
+            .sort(sortBlogs)
+            .map((blog) => <BlogGridItems key={blog.id} blog={blog} />);
     }
 
     return (

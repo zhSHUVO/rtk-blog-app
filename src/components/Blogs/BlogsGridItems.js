@@ -10,7 +10,7 @@ const BlogGridItems = ({ blog = {} }) => {
             </Link>
             <div className="p-4">
                 <div className="lws-card-header">
-                    <p className="lws-publishedDate">{createdAt}createdAt</p>
+                    <p className="lws-publishedDate">{createdAt}</p>
                     <p className="lws-likeCount">
                         <i className="fa-regular fa-thumbs-up"></i>
                         {likes}

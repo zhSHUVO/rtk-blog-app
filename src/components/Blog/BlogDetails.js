@@ -6,7 +6,6 @@ const BlogDetails = ({ blog }) => {
     const dispatch = useDispatch();
 
     const { id, image, title, tags, likes, isSaved, description } = blog;
-    console.log(isSaved);
 
     return (
         <main className="post">
